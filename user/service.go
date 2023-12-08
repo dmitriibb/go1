@@ -2,24 +2,18 @@ package user
 
 import (
 	"fmt"
-	"sync"
-	"web-app1/db"
-	"web-app1/model"
 )
 
-var lock = &sync.Mutex{}
-var instance *PersonService
-
-type PersonService struct {
-	dbService *db.DbService
+func GetAll() []User {
+	return Repo.All()
+}
+func Save(user *User) {
+	fmt.Println("USerService - save", user)
+	Repo.Save(*user)
 }
 
-func GetAll() []model.User {
-	return service.dbService.GetAllPerson()
-}
-func Save(p *model.User) {
-	fmt.Println("PersonService - save", p)
-	service.dbService.SavePerson(*p)
+func Delete(user *User) bool {
+	return Repo.Delete(*user)
 }
 
 //func PersonServiceInstance() *PersonService {
@@ -29,7 +23,7 @@ func Save(p *model.User) {
 //	lock.Lock()
 //	defer lock.Unlock()
 //	if instance == nil {
-//		dbService := db.Instance()
+//		dbService := repository.Instance()
 //		instance = &PersonService{dbService}
 //	}
 //	return instance
@@ -51,7 +45,7 @@ func Save(p *model.User) {
 //	lock.Lock()
 //	defer lock.Unlock()
 //	if instance == nil {
-//		metadata := factory.BeanMetadata{fmt.Sprintf("%T", instan)}
+//		metadata := factory.BeanMetadata{fmt.Sprintf("%T", instant)}
 //		instance = &PersonService{}
 //	}
 //	return instance
