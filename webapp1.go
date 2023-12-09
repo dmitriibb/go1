@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"web-app1/common/db"
 	"web-app1/user"
 )
 
@@ -16,9 +17,9 @@ func handlerHello(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	db.TestConnectPostgres()
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/hello", handlerHello)
 	http.HandleFunc("/user", user.HandlerUser)
 	log.Fatal(http.ListenAndServe(":8080", nil))
-
 }

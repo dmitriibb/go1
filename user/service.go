@@ -5,15 +5,15 @@ import (
 )
 
 func GetAll() []User {
-	return Repo.All()
+	return Repo.DbAll()
 }
 func Save(user *User) {
 	fmt.Println("USerService - save", user)
-	Repo.Save(*user)
+	Repo.DbSave(*user)
 }
 
 func Delete(user *User) bool {
-	return Repo.Delete(*user)
+	return Repo.DbDelete(*user)
 }
 
 //func PersonServiceInstance() *PersonService {
